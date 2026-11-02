@@ -259,6 +259,7 @@ err:
 
 bool app_inst_util_get_size(const char* title_id, unsigned long* size, int* error) {
 	int ret;
+	uint32_t size32 = 0;
 
 	if (!s_app_inst_util_initialized) {
 		ret = ORBIS_KERNEL_ERROR_ENXIO;
@@ -276,7 +277,12 @@ bool app_inst_util_get_size(const char* title_id, unsigned long* size, int* erro
 		goto err;
 	}
 
-	ret = sceAppInstUtilAppGetSize(title_id, size);
+	if (!size) {
+		ret = ORBIS_KERNEL_ERROR_EINVAL;
+		if (error) *error = ret;
+		goto err;
+	}
+	ret = sceAppInstUtilAppGetSize(title_id, &size32);
 	if (ret) {
 		if (error) {
 			*error = ret;
@@ -284,6 +290,7 @@ bool app_inst_util_get_size(const char* title_id, unsigned long* size, int* erro
 		EPRINTF("sceAppInstUtilAppGetSize failed: 0x%08X\n", ret);
 		goto err;
 	}
+	*size = (unsigned long)size32;
 
 	return true;
 
