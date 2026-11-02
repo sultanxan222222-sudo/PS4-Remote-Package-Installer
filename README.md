@@ -33,11 +33,11 @@ The original Remote Package Installer documentation says the app must remain in 
 - [x] Upstream source tree imported (37 files under `RPI/`).
 - [x] Bundled runtime PRX modules imported.
 - [x] Startup symbol checks, HTTP Range handling, HTTP error propagation, and API request-body length fixes committed.
-- [ ] Import upstream package artwork required by the Makefile.
+- [x] Import upstream package artwork and runtime modules required by the package.
 - [ ] Reproducible OpenOrbis PKG build.
 - [ ] Hardware test on PS4 Pro / GoldHEN 13.02.
 
-**No working PKG or verified compatibility claim is published yet.** The source import and code fixes are committed, but the package artwork and a successful toolchain build are still outstanding.
+**No working PKG or verified compatibility claim is published yet.** The complete upstream source and package inputs are committed with code fixes, but a successful toolchain build and console test are still outstanding.
 
 ## Build prerequisites
 The upstream OOSDK project documents the OpenOrbis PS4 Toolchain and the `OO_PS4_TOOLCHAIN` environment variable. Its repository includes a Visual Studio solution and a Makefile; the exact build command must be confirmed against the imported source tree.
