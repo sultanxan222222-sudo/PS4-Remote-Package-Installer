@@ -1576,7 +1576,7 @@ static void cleanup_temp_files(void) {
 	char buf[8192];
 	struct dirent* entry;
 	OrbisKernelStat stat_buf;
-	struct timespec now, diff;
+	struct timespec now;
 	int fd = -1;
 	int ret;
 
@@ -1617,12 +1617,10 @@ static void cleanup_temp_files(void) {
 						goto err;
 					}
 
-					if (timespec_compare(&now, &stat_buf.st_atime) >= 0) {
-						timespec_sub(&diff, &now, &stat_buf.st_atime);
-
-						if (diff.tv_sec >= (long)CLEANUP_DAY_COUNT * 24 * 60 * 60) {
-							unlink(full_path);
-						}
+					/* OrbisKernelStat.st_atime is a time_t, not a timespec. */
+					if (now.tv_sec >= stat_buf.st_atime &&
+						now.tv_sec - stat_buf.st_atime >= (long)CLEANUP_DAY_COUNT * 24 * 60 * 60) {
+						unlink(full_path);
 					}
 				}
 			}
