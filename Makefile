@@ -1,8 +1,8 @@
 # Package metadata.
 TITLE       := RPI
 VERSION     := 1.02
-TITLE_ID    := KPBR01111
-CONTENT_ID  := IV0000-KPBR01111_00-AAAAAAAAAAAAAAAA
+TITLE_ID    := BREW01111
+CONTENT_ID  := IV0000-BREW01111_00-AAAAAAAAAA000000
 
 # Libraries linked into the ELF.
 LIBS        := -lc -lkernel -lc++ -lSceUserService -lSceSystemService -lSceNet -lSceHttp -lSceBgft -lSceAppInstUtil -lSceSsl -lSceSysmodule -lSceNetCtl -lSceNpUtility -lSceNpCommon
