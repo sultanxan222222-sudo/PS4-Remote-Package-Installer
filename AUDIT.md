@@ -67,7 +67,9 @@ Several Actions runs have now been performed. The first attempts exposed and cor
 - an unused `-lSceJson` linker dependency;
 - type mismatches in the AppInstUtil size wrapper and module-loading call.
 
-The latest run is still progressing through toolchain setup/build. No successful PKG artifact has been confirmed, so the project is **not yet a verified installable PKG**.
+The corrected run #17 completed successfully: all source files compiled, linked, and the OpenOrbis package tools generated a PKG. The Actions artifact is 6,619,136 bytes. The extracted PKG SHA-256 is `47216d987b047307f3496aa7c94a44fb64d473c7b10683a05dfcbcbfab952b0d`.
+
+This confirms a successful package build, **not** successful installation or runtime compatibility on the target console. PS4 Pro + GoldHEN 13.02 hardware testing is still outstanding.
 
 
 ## Additional compile-time corrections
@@ -78,3 +80,14 @@ The latest run is still progressing through toolchain setup/build. No successful
 - `sceKernelLoadStartModule` receives correctly typed zero/NULL arguments.
 - The file-cleanup code now treats `OrbisKernelStat.st_atime` as `time_t`, not `struct timespec`.
 - The module-list and socket-bind calls now use the SDK's declared types.
+
+
+## Successful package build
+
+- GitHub Actions run: [#17](https://github.com/sultanxan222222-sudo/PS4-Remote-Package-Installer/actions/runs/41532908036)
+- Build commit: `5d9b2fc1578a3398cf2fe8e3a48bc3ebbaa1fb52`
+- PKG file: `IV0000-KPBR01111_00-AAAAAAAAAAAAAAAA.pkg`
+- Size: 6,619,136 bytes
+- SHA-256: `47216d987b047307f3496aa7c94a44fb64d473c7b10683a05dfcbcbfab952b0d`
+
+The package has a PS4 PKG header. It has not yet been installed or launched on the user's console.
