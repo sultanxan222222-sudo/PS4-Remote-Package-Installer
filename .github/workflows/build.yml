@@ -14,12 +14,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
+    env:
+      DOTNET_ROLL_FORWARD: Major
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '3.1.32'
+          dotnet-version: '3.1.426'
 
       - name: Install compiler and linker
         run: |
