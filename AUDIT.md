@@ -54,3 +54,10 @@ The following changes are applied to the copied sources:
 - `sce_sys/icon0.png`, `pic0.png`, and `pic1.png`
 
 The build still needs a reproducible OpenOrbis toolchain run. No PKG has been generated or tested yet.
+
+
+## Reproducible build attempt
+
+A GitHub Actions workflow has been added at `.github/workflows/build.yml`. It installs OpenOrbis PS4 Toolchain v0.5.4, clang/lld, and the .NET 3.1 runtime, then runs the repository Makefile and publishes a PKG artifact if the build succeeds.
+
+The repository's Actions API currently reports no workflow runs, so this workflow has **not** yet produced a build result. It must not be treated as a successful build.
