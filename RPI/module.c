@@ -17,7 +17,7 @@ int32_t sceKernelLoadStartModuleFromSandbox(const char* name, size_t args, const
 
 	snprintf(filePath, sizeof(filePath), "/%s/common/lib/%s", sandboxWord, name);
 
-	handle = sceKernelLoadStartModule(filePath, args, argp, flags, opts, res);
+	handle = sceKernelLoadStartModule(filePath, args, argp, flags, (void*)opts, res);
 
 	return handle;
 }
@@ -45,7 +45,7 @@ int32_t sceKernelLoadStartModuleFromSandbox(const char* name, size_t args, const
 
 int sceKernelGetModuleInfoByName(const char* name, OrbisKernelModuleInfo* info) {
 	OrbisKernelModuleInfo tmpInfo;
-	int32_t handles[255];
+	OrbisKernelModule handles[255];
 	size_t numModules;
 	size_t i;
 	int ret;
