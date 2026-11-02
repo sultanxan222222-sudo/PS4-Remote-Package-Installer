@@ -260,7 +260,6 @@ bad_request:
 
   char *data = NULL;
   size_t data_size = 0;
-  bool owns_data = false;
   if (strcmp(method, "POST") == 0) {
     if (st->recv_buf.len < st->data_idx) {
       kick_error(st, 400, "Bad request", "Invalid request body");
@@ -276,7 +275,6 @@ bad_request:
     }
     memcpy(data, sb_get_content_data(st), data_size);
     data[data_size] = '\0';
-    owns_data = true;
   } else if (strcmp(method, "GET") == 0) {
     data = sb_get_query_data(st, "data");
     if (data) data_size = strnlen(data, 512);
@@ -288,8 +286,7 @@ bad_request:
   }
 
   (*handler)(st, method, path, data, data_size);
-  if (owns_data) free(data);
-  else free(data);
+  free(data);
 
 	ret = SB_RES_OK;
 
