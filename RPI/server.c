@@ -198,10 +198,7 @@ void server_stop(void) {
 char *sb_get_query_data(sb_Stream *st, const char *name) {
   char *data = (char *)calloc(1, 512);
   if (!data) return NULL;
-  if (sb_get_var(st, name, data, 511) < 0) {
-    free(data);
-    return NULL;
-  }
+  sb_get_var(st, name, data, 511);
   data[511] = '\0';
   return data;
 }
