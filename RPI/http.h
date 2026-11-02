@@ -1,8 +1,8 @@
 #pragma once
 
-#include <orbis/_types/http.h>
-
 #include "common.h"
+
+#include <orbis/_types/http.h>
 
 // Empty Comment
 int sceHttpAbortRequest(int reqId);
