@@ -903,7 +903,7 @@ sb_Server *sb_new_server(const sb_Options *opt) {
   err = sceNetSetsockopt(srv->sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval));
   
   /* Bind and listen */
-  err = sceNetBind(srv->sockfd, (struct sockaddr*)&in_addr, sizeof(in_addr));
+  err = sceNetBind(srv->sockfd, (const OrbisNetSockaddr*)&in_addr, sizeof(in_addr));
   if (err)
   {
 	  KernelPrintOut("Failed to bind socket ret %d %s\n", err, strerror(errno));
