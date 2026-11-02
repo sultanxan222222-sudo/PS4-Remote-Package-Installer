@@ -1,23 +1,42 @@
 # PS4 Remote Package Installer
 
-Updated and compatibility-focused Remote Package Installer for PS4.
+Compatibility-focused Remote Package Installer for PS4.
 
-## Target
-- PS4 Pro
-- GoldHEN on system software 13.02
-- Windows PC sender connecting to the console over the local network
-
-## Project goals
-- Preserve the original Remote Package Installer protocol and proven behavior.
-- Verify compatibility with the target PS4 environment before claiming support.
-- Keep the console-side listener stable and report useful connection/install errors.
-- Provide reproducible builds and release PKG artifacts when build infrastructure is available.
+## Target test environment
+- Console: PS4 Pro
+- Homebrew environment: GoldHEN
+- System software: 13.02
+- Sender: Windows PC on the same local network
 
 ## Upstream
-Based on the OpenOrbis SDK port of `ps4_remote_pkg_installer` by illusionyy, which credits flatz for the original work.
+This project is intended to start from the OpenOrbis SDK port maintained in [illusionyy/PS4RPI](https://github.com/illusionyy/PS4RPI), which credits [flatz/ps4_remote_pkg_installer](https://github.com/flatz/ps4_remote_pkg_installer) for the original implementation.
 
-Upstream: https://github.com/illusionyy/PS4RPI
-Original project: https://github.com/flatz/ps4_remote_pkg_installer
+The upstream OOSDK port documents TCP port **12801** as its default listener port. Do not assume another port: verify the actual build/configuration on the console.
 
-## Status
-Repository initialized. Source import, code review, build, and PS4 hardware testing are still pending. No compatibility claim is made until the resulting PKG is built and tested on the target console.
+## Compatibility work plan
+
+1. Import the complete upstream source and preserve its license and attribution.
+2. Audit startup, network initialization, listener binding, API request parsing, package URL handling, and BGFT task creation.
+3. Verify HTTP byte-range behavior end to end. The PS4 reads package metadata at offsets inside the PKG; the PC file server must correctly implement `Range: bytes=...`, return `206 Partial Content`, and provide a correct `Content-Range`. A server that always returns the whole file can cause package metadata parsing to fail.
+4. Verify filenames and URLs containing spaces and non-ASCII characters.
+5. Add clear startup diagnostics for the console IP, listening port, and network errors without exposing private data.
+6. Build a reproducible PKG with the OpenOrbis toolchain.
+7. Test on the exact target: PS4 Pro + GoldHEN + system software 13.02. Record successful connection, package metadata read, download, and installation separately.
+
+## Important runtime note
+The original Remote Package Installer documentation says the app must remain in the foreground while it receives the remote install command. After the task has been accepted and the download phase is underway, background behavior may differ. Keep the app open during connection and task registration.
+
+## Current status
+
+- [x] Repository created.
+- [x] Target console environment recorded.
+- [x] Initial protocol and compatibility checklist documented.
+- [ ] Complete upstream source imported.
+- [ ] Source audit and fixes.
+- [ ] Reproducible PKG build.
+- [ ] Hardware test on PS4 Pro / GoldHEN 13.02.
+
+**No working PKG or verified compatibility claim is published yet.** The full upstream source archive is required before code changes and a real build can be completed.
+
+## Build prerequisites
+The upstream OOSDK project documents the OpenOrbis PS4 Toolchain and the `OO_PS4_TOOLCHAIN` environment variable. Its repository includes a Visual Studio solution and a Makefile; the exact build command must be confirmed against the imported source tree.
