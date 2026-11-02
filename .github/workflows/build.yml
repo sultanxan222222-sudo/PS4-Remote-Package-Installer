@@ -58,7 +58,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          PKG="IV0000-KPBR01111_00-AAAAAAAAAAAAAAAA.pkg"
+          PKG="IV0000-BREW01111_00-AAAAAAAAAA000000.pkg"
           test -s "$PKG"
           "$OO_PS4_TOOLCHAIN/bin/linux/PkgTool.Core" pkg_validate --verbose "$PKG"
 
