@@ -425,8 +425,8 @@ err:
 static int do_request(const char* url, int method, const void* data, size_t data_size, const char** headers, size_t header_count, request_cb_t* cb, void* arg) {
 	int tpl_id = -1, conn_id = -1, req_id = -1;
 	unsigned int ssl_flags;
-	int status_code, content_length_type;
-	uint64_t content_length;
+	int status_code = 0, content_length_type = 0;
+	uint64_t content_length = 0;
 	size_t i;
 	int ret;
 	int cleanup_ret;
