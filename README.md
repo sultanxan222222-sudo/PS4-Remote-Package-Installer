@@ -34,7 +34,7 @@ The original Remote Package Installer documentation says the app must remain in 
 - [x] Bundled runtime PRX modules imported.
 - [x] Startup symbol checks, HTTP Range handling, HTTP error propagation, and API request-body length fixes committed.
 - [x] Import upstream package artwork and runtime modules required by the package.
-- [ ] Reproducible OpenOrbis PKG build.
+- [x] Reproducible OpenOrbis PKG build (GitHub Actions run #17).
 - [ ] Hardware test on PS4 Pro / GoldHEN 13.02.
 
 **No working PKG or verified compatibility claim is published yet.** The complete upstream source and package inputs are committed with code fixes, but a successful toolchain build and console test are still outstanding.
@@ -55,4 +55,4 @@ The upstream OOSDK project documents the OpenOrbis PS4 Toolchain and the `OO_PS4
 
 ## Automated build
 
-A GitHub Actions build workflow is available at [build.yml](.github/workflows/build.yml). It is configured to build with OpenOrbis Toolchain v0.5.4 and publish the generated PKG as an Actions artifact. No successful workflow run has been confirmed yet.
+A GitHub Actions build workflow is available at [build.yml](.github/workflows/build.yml). It is configured to build with OpenOrbis Toolchain v0.5.4 and publish the generated PKG as an Actions artifact. Successful build: [GitHub Actions run #17](https://github.com/sultanxan222222-sudo/PS4-Remote-Package-Installer/actions/runs/41532908036). The generated PKG is available as an Actions artifact. Hardware installation and runtime testing are still outstanding.
