@@ -1,5 +1,7 @@
 
 #include <orbis/libkernel.h>
+#include <orbis/SystemService.h>
+#include <string.h>
 
 #include <stdarg.h>
 #include <stdio.h>
