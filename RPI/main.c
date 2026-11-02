@@ -85,6 +85,7 @@ bool Jailbreak(void)
 	{
 		KernelPrintOut("Failed to load libjbc");
 		sceSystemServiceLoadExec((char*)"exit", NULL);
+		return false;
 	}
 
 	jbc_get_cred(&og);
