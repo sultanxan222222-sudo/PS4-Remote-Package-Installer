@@ -60,4 +60,21 @@ The build still needs a reproducible OpenOrbis toolchain run. No PKG has been ge
 
 A GitHub Actions workflow has been added at `.github/workflows/build.yml`. It installs OpenOrbis PS4 Toolchain v0.5.4, clang/lld, and the .NET 3.1 runtime, then runs the repository Makefile and publishes a PKG artifact if the build succeeds.
 
-The repository's Actions API currently reports no workflow runs, so this workflow has **not** yet produced a build result. It must not be treated as a successful build.
+Several Actions runs have now been performed. The first attempts exposed and corrected:
+- an unavailable .NET SDK pin;
+- the actual v0.5.4 release asset name and extraction directory;
+- SDK header include ordering and case-sensitive header names;
+- an unused `-lSceJson` linker dependency;
+- type mismatches in the AppInstUtil size wrapper and module-loading call.
+
+The latest run is still progressing through toolchain setup/build. No successful PKG artifact has been confirmed, so the project is **not yet a verified installable PKG**.
+
+
+## Additional compile-time corrections
+
+- `RPI/http.h` now includes the shared fixed-width type declarations before the Orbis HTTP type header.
+- SDK header paths use their exact case-sensitive names (`UserService.h`, `Bgft.h`, `SystemService.h`).
+- AppInstUtil's 32-bit installed-size result is converted explicitly to the wrapper's public size type.
+- `sceKernelLoadStartModule` receives correctly typed zero/NULL arguments.
+- The file-cleanup code now treats `OrbisKernelStat.st_atime` as `time_t`, not `struct timespec`.
+- The module-list and socket-bind calls now use the SDK's declared types.
