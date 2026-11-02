@@ -26,7 +26,7 @@ jobs:
       - name: Install compiler and linker
         run: |
           sudo apt-get update
-          sudo apt-get install -y clang-12 lld-12 make
+          sudo apt-get install -y clang-12 lld-12 make imagemagick
 
       - name: Install OpenOrbis PS4 Toolchain
         shell: bash
@@ -38,6 +38,16 @@ jobs:
           test -x "$OO_PS4_TOOLCHAIN/bin/linux/PkgTool.Core"
           echo "OO_PS4_TOOLCHAIN=$OO_PS4_TOOLCHAIN" >> "$GITHUB_ENV"
           echo "$OO_PS4_TOOLCHAIN/bin/linux" >> "$GITHUB_PATH"
+
+      - name: Normalize required PS4 icon format
+        shell: bash
+        run: |
+          set -euo pipefail
+          # PS4 homebrew package icon0.png must be an opaque 24-bit PNG.
+          convert sce_sys/icon0.png -background black -alpha remove -alpha off -depth 8 PNG24:/tmp/icon0-ps4.png
+          mv /tmp/icon0-ps4.png sce_sys/icon0.png
+          file sce_sys/icon0.png
+          identify -format '%m %wx%h %[channels]\n' sce_sys/icon0.png
 
       - name: Build package
         run: |
