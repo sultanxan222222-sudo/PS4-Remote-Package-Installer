@@ -429,6 +429,7 @@ static int do_request(const char* url, int method, const void* data, size_t data
 	uint64_t content_length;
 	size_t i;
 	int ret;
+	int cleanup_ret;
 
 	if (!url) {
 		ret = SCE_HTTP_ERROR_INVALID_VALUE;
@@ -506,21 +507,24 @@ static int do_request(const char* url, int method, const void* data, size_t data
 	}
 
 err_req_delete:
-	ret = sceHttpDeleteRequest(req_id);
-	if (ret) {
-		EPRINTF("sceHttpDeleteRequest failed: 0x%08X\n", ret);
+	cleanup_ret = sceHttpDeleteRequest(req_id);
+	if (cleanup_ret) {
+		EPRINTF("sceHttpDeleteRequest failed: 0x%08X\n", cleanup_ret);
+		if (!ret) ret = cleanup_ret;
 	}
 
 err_conn_delete:
-	ret = sceHttpDeleteConnection(conn_id);
-	if (ret) {
-		EPRINTF("sceHttpDeleteConnection failed: 0x%08X\n", ret);
+	cleanup_ret = sceHttpDeleteConnection(conn_id);
+	if (cleanup_ret) {
+		EPRINTF("sceHttpDeleteConnection failed: 0x%08X\n", cleanup_ret);
+		if (!ret) ret = cleanup_ret;
 	}
 
 err_tpl_delete:
-	ret = sceHttpDeleteTemplate(tpl_id);
-	if (ret) {
-		EPRINTF("sceHttpDeleteTemplate failed: 0x%08X\n", ret);
+	cleanup_ret = sceHttpDeleteTemplate(tpl_id);
+	if (cleanup_ret) {
+		EPRINTF("sceHttpDeleteTemplate failed: 0x%08X\n", cleanup_ret);
+		if (!ret) ret = cleanup_ret;
 	}
 
 err:
