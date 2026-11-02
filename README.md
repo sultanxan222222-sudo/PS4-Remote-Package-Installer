@@ -40,3 +40,13 @@ The original Remote Package Installer documentation says the app must remain in 
 
 ## Build prerequisites
 The upstream OOSDK project documents the OpenOrbis PS4 Toolchain and the `OO_PS4_TOOLCHAIN` environment variable. Its repository includes a Visual Studio solution and a Makefile; the exact build command must be confirmed against the imported source tree.
+
+
+## Current source status
+
+- Imported upstream RPI source files and build definitions.
+- Added checks for jailbreak-helper symbol resolution.
+- Added strict HTTP 206 validation for non-zero Range requests and short-read rejection.
+- Preserved request errors while HTTP resources are cleaned up.
+- Fixed API handler request-body length handling.
+- Build and PS4 installation remain unverified.
