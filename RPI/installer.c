@@ -5,9 +5,9 @@
 #include "KPutil.h"
 
 #include <orbis/libkernel.h>
-#include <orbis/userservice.h>
+#include <orbis/UserService.h>
 #include <orbis/AppInstUtil.h>
-#include <orbis/bgft.h>
+#include <orbis/Bgft.h>
 #include <sys/param.h>
 
 #define _NDBG 
