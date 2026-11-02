@@ -44,6 +44,14 @@ jobs:
           make clean
           make CC=clang-12 CCX=clang++-12 LD=ld.lld-12
 
+      - name: Validate generated PKG
+        shell: bash
+        run: |
+          set -euo pipefail
+          PKG="IV0000-KPBR01111_00-AAAAAAAAAAAAAAAA.pkg"
+          test -s "$PKG"
+          "$OO_PS4_TOOLCHAIN/bin/linux/PkgTool.Core" pkg_validate --verbose "$PKG"
+
       - name: Publish PKG artifact
         uses: actions/upload-artifact@v4
         with:
