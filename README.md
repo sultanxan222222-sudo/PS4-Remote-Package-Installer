@@ -51,3 +51,8 @@ The upstream OOSDK project documents the OpenOrbis PS4 Toolchain and the `OO_PS4
 - Preserved request errors while HTTP resources are cleaned up.
 - Fixed API handler request-body length handling.
 - Build and PS4 installation remain unverified.
+
+
+## Automated build
+
+A GitHub Actions build workflow is available at [build.yml](.github/workflows/build.yml). It is configured to build with OpenOrbis Toolchain v0.5.4 and publish the generated PKG as an Actions artifact. No successful workflow run has been confirmed yet.
